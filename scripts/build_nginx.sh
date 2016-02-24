@@ -10,11 +10,11 @@
 # this dyno's directory structure to download the nginx binary.
 
 NGINX_VERSION=${NGINX_VERSION-1.9.7}
-PCRE_VERSION=${PCRE_VERSION-8.38}
+PCRE_VERSION=${PCRE_VERSION-8.21}
 HEADERS_MORE_VERSION=${HEADERS_MORE_VERSION-0.29}
 
 nginx_tarball_url=http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz
-pcre_tarball_url=http://garr.dl.sourceforge.net/project/pcre/pcre/${PCRE_VERSION}/pcre-${PCRE_VERSION}.tar.bz2
+pcre_tarball_url=http://netcologne.dl.sourceforge.net/project/pcre/pcre/${PCRE_VERSION}/pcre-${PCRE_VERSION}.tar.bz2
 headers_more_nginx_module_url=https://github.com/agentzh/headers-more-nginx-module/archive/v${HEADERS_MORE_VERSION}.tar.gz
 
 temp_dir=$(mktemp -d /tmp/nginx.XXXXXXXXXX)
