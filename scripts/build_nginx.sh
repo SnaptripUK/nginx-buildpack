@@ -18,6 +18,9 @@ nginx_tarball_url=http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz
 pcre_tarball_url=http://netcologne.dl.sourceforge.net/project/pcre/pcre/${PCRE_VERSION}/pcre-${PCRE_VERSION}.tar.bz2
 headers_more_nginx_module_url=https://github.com/agentzh/headers-more-nginx-module/archive/v${HEADERS_MORE_VERSION}.tar.gz
 open_ssl_url=https://www.openssl.org/source/openssl-${OPEN_SSL_VERSION}.tar.gz
+lua_jit_url=http://luajit.org/download/LuaJIT-2.0.4.tar.gz
+nginx_devel_kit_url=https://github.com/simpl/ngx_devel_kit/archive/v0.3.0.tar.gz
+nginx_lua_module_url=https://github.com/openresty/lua-nginx-module/archive/v0.10.8.tar.gz
 
 temp_dir=$(mktemp -d /tmp/nginx.XXXXXXXXXX)
 
@@ -42,12 +45,31 @@ echo "Downloading $headers_more_nginx_module_url"
 echo "Downloading $open_ssl_url"
 (cd nginx-${NGINX_VERSION} && curl -L $open_ssl_url | tar xvz )
 
+echo "Downloading $lua_jit_url"
+curl -L $lua_jit_url | tar xzv
+
+echo "Downloading $nginx_devel_kit_url"
+curl -L $nginx_devel_kit_url | tar xzv
+
+echo "Downloading $nginx_lua_module_url"
+curl -L $nginx_lua_module_url | tar xzv
+
+cd LuaJIT-2.0.4
+make && sudo make install
+cd $temp_dir
+
+export LUAJIT_LIB=/usr/local/lib
+export LUAJIT_INC=/usr/local/include
+
 (
 	cd nginx-${NGINX_VERSION}
 	./configure \
 		--with-pcre=pcre-${PCRE_VERSION} \
 		--prefix=/tmp/nginx \
+		--with-ld-opt="-Wl,-rpath,${LUAJIT_LIB}" \
 		--add-module=/${temp_dir}/nginx-${NGINX_VERSION}/headers-more-nginx-module-${HEADERS_MORE_VERSION} \
+   	    --add-module=/${temp_dir}/ngx_devel_kit-0.3.0
+	    --add-module=/${temp_dir}/lua-nginx-module-0.10.8
 		--with-http_ssl_module --with-openssl=${temp_dir}/nginx-${NGINX_VERSION}/openssl-${OPEN_SSL_VERSION} \
 		--with-http_realip_module
 	make install
