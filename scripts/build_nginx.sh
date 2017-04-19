@@ -59,7 +59,7 @@ make && make install PREFIX=/${temp_dir}/luabuild
 cd $temp_dir
 
 export LUAJIT_LIB=/${temp_dir}/luabuild/lib
-export LUAJIT_INC=/${temp_dir}/luabuild/include
+export LUAJIT_INC=/${temp_dir}/luabuild/include/luajit-2.0
 
 (
 	cd nginx-${NGINX_VERSION}
