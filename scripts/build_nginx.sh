@@ -55,12 +55,11 @@ echo "Downloading $nginx_lua_module_url"
 curl -L $nginx_lua_module_url | tar xzv
 
 cd LuaJIT-2.0.4
-mkdir luabuild
 make && make install PREFIX=/${temp_dir}/luabuild
 cd $temp_dir
 
-export LUAJIT_LIB=/${temp_dir}/LuaJIT-2.0.4/luabuild/lib
-export LUAJIT_INC=/${temp_dir}/LuaJIT-2.0.4/luabuild/include
+export LUAJIT_LIB=/${temp_dir}/luabuild/lib
+export LUAJIT_INC=/${temp_dir}/luabuild/include
 
 (
 	cd nginx-${NGINX_VERSION}
