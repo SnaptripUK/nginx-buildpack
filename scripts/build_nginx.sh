@@ -55,7 +55,7 @@ echo "Downloading $nginx_lua_module_url"
 curl -L $nginx_lua_module_url | tar xzv
 
 cd LuaJIT-2.0.4
-make && sudo make install
+make && make install
 cd $temp_dir
 
 export LUAJIT_LIB=/usr/local/lib
@@ -68,8 +68,8 @@ export LUAJIT_INC=/usr/local/include
 		--prefix=/tmp/nginx \
 		--with-ld-opt="-Wl,-rpath,${LUAJIT_LIB}" \
 		--add-module=/${temp_dir}/nginx-${NGINX_VERSION}/headers-more-nginx-module-${HEADERS_MORE_VERSION} \
-   	    --add-module=/${temp_dir}/ngx_devel_kit-0.3.0
-	    --add-module=/${temp_dir}/lua-nginx-module-0.10.8
+   	    --add-module=/${temp_dir}/ngx_devel_kit-0.3.0 \
+	    --add-module=/${temp_dir}/lua-nginx-module-0.10.8 \
 		--with-http_ssl_module --with-openssl=${temp_dir}/nginx-${NGINX_VERSION}/openssl-${OPEN_SSL_VERSION} \
 		--with-http_realip_module
 	make install
