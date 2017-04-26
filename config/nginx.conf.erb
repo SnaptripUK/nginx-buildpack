@@ -41,5 +41,12 @@ http {
 			proxy_redirect off;
 			proxy_pass http://app_server;
 		}
+		
+        location ^~ /blog {
+			default_type 'text/plain';
+			content_by_lua_block {
+				ngx.say('Hello,world!')
+			}
+        }
 	}
 }
