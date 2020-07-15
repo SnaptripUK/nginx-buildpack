@@ -4,8 +4,8 @@ psmgr=/tmp/nginx-buildpack-wait
 rm -f $psmgr
 mkfifo $psmgr
 
-#Evaluate config to get $PORT
-envsubst < conf/nginx.conf.template > conf/nginx.conf
+#Evaluate config to get $PORT and $NGINX_WORKERS
+envsubst '${PORT} ${NGINX_WORKERS}' < conf/nginx.conf.template > conf/nginx.conf
 
 #Initialize log directory.
 mkdir -p logs/nginx
