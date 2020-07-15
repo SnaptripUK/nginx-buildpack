@@ -35,10 +35,10 @@ done
 echo 'buildpack=nginx-prerenderer at=nginx-initialized'
   
 #Start App Server
-(
-	#Take the command passed to this bin and start it.
-  	#E.g. bin/start-nginx bundle exec unicorn -c config/unicorn.rb
-          COMMAND=${@:$n}
+(		
+	LINE=${@:$n}
+	repl=""
+        COMMAND="${LINE/bin'/'start-nginx/$repl}"
   	echo "buildpack=nginx-prerenderer at=start-app cmd=$COMMAND"
   	$COMMAND
 	echo 'app' >$psmgr
