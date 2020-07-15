@@ -41,15 +41,4 @@ echo 'buildpack=nginx-prerenderer at=nginx-initialized'
         COMMAND="${LINE/bin'/'start-nginx/$repl}"
   	echo "buildpack=nginx-prerenderer at=start-app cmd=$COMMAND"
   	$COMMAND
-	echo 'app' >$psmgr
-) &
-
-#This read will block the process waiting on a msg to be put into the fifo.
-#If any of the processes defined above should exit,
-#a msg will be put into the fifo causing the read operation
-#to un-block. The process putting the msg into the fifo
-#will use it's process name as a msg so that we can print the offending
-#process to stdout.
-read exit_process <$psmgr
-echo "buildpack=nginx-prerenderer at=exit process=$exit_process"
-exit 1
+)
