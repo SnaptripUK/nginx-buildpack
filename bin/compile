@@ -18,8 +18,8 @@ mkdir -p "$1/lib/nginx/lua"
 cp -r lib/* "$1/lib/nginx/lua"
 echo '-----> nginx-buildpack: Additional Lua packages copied to lib/nginx/lua'
 
-if [[ ! -f $1/config/nginx.conf.erb ]]; then
-	cp config/nginx.conf.erb "$1/config/"
+if [[ ! -f $1/config/nginx.conf.template ]]; then
+	cp config/nginx.conf.template "$1/config/"
 	echo '-----> nginx-buildpack: Default config copied to app/config.'
 else
 	echo '-----> nginx-buildpack: Custom config found in app/config.'
