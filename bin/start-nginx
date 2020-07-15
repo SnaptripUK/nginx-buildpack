@@ -5,7 +5,7 @@ rm -f $psmgr
 mkfifo $psmgr
 
 #Evaluate config to get $PORT
-envsubst < config/nginx.conf.template > config/nginx.conf
+envsubst < conf/nginx.conf.template > conf/nginx.conf
 
 #Initialize log directory.
 mkdir -p logs/nginx
