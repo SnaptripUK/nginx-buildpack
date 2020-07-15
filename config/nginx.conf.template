@@ -1,9 +1,8 @@
 daemon off;
-#Heroku dynos have at least 4 cores.
-worker_processes <%= ENV['NGINX_WORKERS'] || 4 %>;
+#use envsubst to replace env vars
+worker_processes $NGINX_WORKERS;
 
 events {
-	use epoll;
 	accept_mutex on;
 	worker_connections 1024;
 }
@@ -31,7 +30,7 @@ http {
  	}
 
 	server {
-		listen <%= ENV["PORT"] %>;
+		listen $PORT;
 		server_name _;
 		keepalive_timeout 5;
 
